@@ -64,11 +64,14 @@ end_point = (df.iloc[0]['latitude'], df.iloc[0]['longitude'])
 # Gunakan algoritma A* untuk mencari jalur terpendek
 total_distance_traveled = 0
 current_point = start_point
-for i in range(len(df)):
+for i in range(len(df) - 1):
     next_point = (df.iloc[i]['latitude'], df.iloc[i]['longitude'])
+    next_next_point = (df.iloc[i+1]['latitude'], df.iloc[i+1]['longitude'])
     distance = euclidean_distance(current_point, next_point)
     total_distance_traveled += distance
-    print(f"Jarak {i+1}: {current_point} ke {next_point} = {distance} satuan, Total jarak terkini: {total_distance_traveled} satuan")
+    print(f"\nJarak {i+1}: {current_point} ke {next_point} = {distance} satuan")
+    print(f"Total jarak terkini: {total_distance_traveled} satuan")
+    print(f"Jarak yang akan ditempuh: {euclidean_distance(next_point, next_next_point)} satuan")
     current_point = next_point
 
-print("Total jarak yang telah ditempuh:", total_distance_traveled, "satuan")
+print("\nTotal jarak yang telah ditempuh:", total_distance_traveled, "satuan")
