@@ -47,26 +47,23 @@ df = pd.read_csv('datasetedit.csv')
 # Initialize the graph
 graph = {}
 for index, row in df.iterrows():
-    node = (row['x'], row['y'])
+    node = (row['X'], row['Y'])
     neighbors = []
     for idx, r in df.iterrows():
-        if (r['x'], r['y']) != node:
-            neighbors.append((r['x'], r['y']))
+        if (r['X'], r['Y']) != node:
+            neighbors.append((r['X'], r['Y']))
     graph[node] = neighbors
 
-# Add the starting point to the graph with a connection to the first point in the dataset
-graph[(0.0, 0.0)] = [(df.iloc[0]['x'], df.iloc[0]['y'])]
-
 # The starting and ending points
-start_point = (0.0, 0.0)
-end_point = (df.iloc[0]['x'], df.iloc[0]['y'])
+start_point = (df.iloc[0]['X'], df.iloc[0]['Y'])
+end_point = (df.iloc[-1]['X'], df.iloc[-1]['Y'])
 
 # Use the A* algorithm to find the shortest path
 total_distance_traveled = 0
 current_point = start_point
 for i in range(len(df) - 1):
-    next_point = (df.iloc[i]['x'], df.iloc[i]['y'])
-    next_next_point = (df.iloc[i+1]['x'], df.iloc[i+1]['y'])
+    next_point = (df.iloc[i]['X'], df.iloc[i]['Y'])
+    next_next_point = (df.iloc[i+1]['X'], df.iloc[i+1]['Y'])
     distance = euclidean_distance(current_point, next_point)
     total_distance_traveled += distance
     print(f"\nDistance {i+1}: {current_point} to {next_point} = {distance} units")
